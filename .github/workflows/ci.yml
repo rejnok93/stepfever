@@ -17,7 +17,7 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install dependencies
+      - name_: Install dependencies
         run: bun install
 
       - name: Type check
@@ -29,9 +29,18 @@ jobs:
       - name: Test
         run: bun run test
 
-      - name: Upload Build Artifact
+      - name: Debug - List generated folders
+        run: |
+          echo "=== Obsah složky packages/app ==="
+          ls_ -la packages/app || true
+          echo "=== Hledání složek dist ==="
+          find . -type d -name "dist"
+
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: stepfever-web
-          path: packages/app/dist/
+          name: stepfever-web-build
+          path: |
+            **/packages/app/dist/
+            packages/app/dist/
           retention-days: 5
