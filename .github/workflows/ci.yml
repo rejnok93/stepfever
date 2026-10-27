@@ -32,15 +32,12 @@ jobs:
       - name: Debug - List generated folders
         run: |
           echo "=== Obsah složky packages/app ==="
-          ls_ -la packages/app || true
-          echo "=== Hledání složek dist ==="
-          find . -type d -name "dist"
+          ls -la packages/app || true
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: stepfever-web-build
           path: |
-            **/packages/app/dist/
-            packages/app/dist/
+            packages/core/dist/
           retention-days: 5
